@@ -8,7 +8,7 @@ const database = [];
 const images = {};
 
 //app.use(cors());
-//app.use(express.static('public_html'));
+app.use(express.static('public_html'));
 //app.options('*', cors());
 app.use(cookieParser());
 
