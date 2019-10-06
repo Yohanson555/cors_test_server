@@ -13,26 +13,22 @@ app.use(express.static('public_html'));
 app.use(cookieParser());
 
 app.get('/img', (req, res) => {
-    if (req.cookies && req.cookies.auth && req.cookies.auth === 'itsmeipromise') {
-        if (req.query && req.query.id) {
-            let uid = req.query.id;
-            if (images[uid]) {
-                base64Img = images[uid]
+    if (req.query && req.query.id) {
+        let uid = req.query.id;
+        if (images[uid]) {
+            base64Img = images[uid]
 
-                const type = base64Img.match(/^data:(image\/\w+);base64,/)[1];
-                const img = Buffer.from(base64Img.replace(/^data:image\/\w+;base64,/, ""), 'base64');
+            const type = base64Img.match(/^data:(image\/\w+);base64,/)[1];
+            const img = Buffer.from(base64Img.replace(/^data:image\/\w+;base64,/, ""), 'base64');
 
-                res.writeHead(200, {
-                    'Content-Type': type,
-                    'Content-Length': img.length
-                });
+            res.writeHead(200, {
+                'Content-Type': type,
+                'Content-Length': img.length
+            });
 
-                res.end(img);
-                return;
-            }
+            res.end(img);
+            return;
         }
-    } else {
-        res.status = 404;
     }
 
     res.send(null);
